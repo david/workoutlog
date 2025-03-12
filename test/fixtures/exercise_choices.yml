@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  exercise_option: one
+  reps: 1
+
+two:
+  exercise_option: two
+  reps: 1

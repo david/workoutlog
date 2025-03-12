@@ -1,0 +1,73 @@
+<%# locals: (exercise_choices:, exercise_group:, exercise_groups:, training_session:) %>
+
+<%# locals: (date:, exercise_groups:, group_index:) %>
+
+<main class="prose mx-auto">
+  <h1 class="join flex justify-center text-3xl items-center mt-4 mb-8">
+    <%= link_to "chevron_left", training_session_path(training_session.previous),
+      class: "join-item btn-ghost material-symbols-outlined no-underline" %>
+    <span class="join-item btn-ghost font-bold min-w-64 text-center">
+      <%= training_session.to_param %>
+    </span>
+    <%= link_to "chevron_right", training_session_path(training_session.next),
+      class: "join-item btn-ghost material-symbols-outlined no-underline" %>
+  </h1>
+
+  <% if training_session.past? %>
+    <table class="table">
+      <thead>
+        <th><%= t :priority %></th>
+        <th><%= t :description %></th>
+        <th class="text-right"><%= t :reps %></th>
+      </thead>
+      <tbody>
+        <% exercise_choices.each do |choice| %>
+          <tr>
+            <td><%= exercise_priority(choice.exercise_option.priority) %></td>
+            <td><%= choice.exercise_option.description %></td>
+            <td class="text-right"><%= choice.reps %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <div class="flex">
+      <div class="flex-1/3">
+        <ul class="list">
+          <% exercise_groups.each do |group| %>
+            <% style =
+              if group == exercise_group
+                "border-l-accent border-2 border-t-0 border-r-0 border-b-0 rounded-none"
+              end %>
+
+            <li class="list-row pl-4 <%= style %>">
+              <%= link_to group.name, exercise_group_training_session_path(training_session, group),
+                class: "no-underline" %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+
+      <div class="flex-2/3">
+        <ul class="list mt-0">
+          <% exercise_group.exercise_options.each do |opt| %>
+            <li class="list-row flex">
+              <div class="text-5xl flex-0"><%= exercise_priority(opt.priority) %></div>
+              <div class="flex-1">
+                <p class="mt-0 mb-0"><%= opt.description %></p>
+                <p class="mt-0 mb-0 text-neutral-500"><%= opt.reps %> <%= t :reps %></p>
+              </div>
+              <%= form_with scope: :exercise_choice, class: "flex-0 min-w-20" do |f| %>
+                <%= f.number_field :reps, placeholder: "0", class: "input text-3xl h-full text-right" %>
+              <% end %>
+            </li>
+          <% end %>
+
+          <li class="list-row pl-4 text-xl material-symbols-outlined text-center bg-gray-800">
+            add
+          </li>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+</main>
