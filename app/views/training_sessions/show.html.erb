@@ -63,15 +63,19 @@
 
       <div class="flex-2/3">
         <ul class="list mt-0">
-          <% exercise_group.exercise_options.each do |opt| %>
+          <% exercise_group.find_or_initialize_choices_for(training_session).each do |choice| %>
             <li class="list-row flex">
-              <div class="text-5xl flex-0"><%= exercise_priority(opt.priority) %></div>
+              <div class="text-5xl flex-0"><%= exercise_priority(choice.priority) %></div>
               <div class="flex-1">
-                <p class="mt-0 mb-0"><%= opt.description %></p>
-                <p class="mt-0 mb-0 text-neutral-500"><%= opt.reps %> <%= t :reps %></p>
+                <p class="mt-0 mb-0"><%= choice.description %></p>
+                <p class="mt-0 mb-0 text-neutral-500">
+                  <%= choice.exercise_option.reps %> <%= t :reps %>
+                </p>
               </div>
-              <%= form_with scope: :exercise_choice, class: "flex-0 min-w-20" do |f| %>
-                <%= f.number_field :reps, placeholder: "0", class: "input text-3xl h-full text-right" %>
+              <%= form_with model: [training_session, choice], class: "flex-0 min-w-20" do |f| %>
+                <%= f.hidden_field :exercise_option_id %>
+                <%= f.number_field :reps, placeholder: "0", 
+                  class: "input text-3xl h-full text-right" %>
               <% end %>
             </li>
           <% end %>
