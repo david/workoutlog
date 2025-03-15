@@ -3,9 +3,6 @@ class TrainingSessionsController < ApplicationController
     redirect_to training_session_path(I18n.l(Date.today, format: :ymd))
   end
 
-  def create
-  end
-
   def show
     training_session = current_user.training_sessions.
       find_or_initialize_by(session_on: params[:session_on])
