@@ -14,6 +14,10 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :exercise_groups do
+    resources :exercise_options, only: %i[new create]
+  end
+
   # Defines the root path route ("/")
   root "training_sessions#index"
 end
