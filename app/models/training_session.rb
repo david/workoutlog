@@ -3,10 +3,6 @@ class TrainingSession < ApplicationRecord
 
   delegate :past?, to: :session_on
 
-  def self.from_date_string(date_str)
-    find_or_initialize_by(session_on: Date.strptime(date_str, I18n.t("date.formats.ymd")))
-  end
-
   def previous
     self.class.find_or_initialize_by(session_on: session_on - 1)
   end

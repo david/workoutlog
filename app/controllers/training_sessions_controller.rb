@@ -7,7 +7,8 @@ class TrainingSessionsController < ApplicationController
   end
 
   def show
-    training_session = current_user.training_sessions.from_date_string(params[:session_on])
+    training_session = current_user.training_sessions.
+      find_or_initialize_by(session_on: params[:session_on])
 
     if params[:exercise_group_id]
       render locals: {
