@@ -45,6 +45,19 @@
                 class: "no-underline" %>
             </li>
           <% end %>
+          <li class="list-row pl-4 text-xl bg-gray-800 justify-center">
+            <%= form_with model: ExerciseGroup.new do |f| %>
+              <p>
+                <label>
+                  <%= t :name %>
+                  <%= f.text_field :name, class: "input" %>
+                </label>
+              </p>
+              <p>
+                <%= f.submit "Save", class: "btn" %>
+              </p>
+            <% end %>
+          </li>
         </ul>
       </div>
 
