@@ -76,25 +76,27 @@
             </li>
           <% end %>
 
-          <li class="list-row pl-4 text-xl bg-gray-800 justify-center">
-            <%= form_with model: ExerciseOption.new, url: exercise_group_exercise_options_path(exercise_group) do |f| %>
-              <p>
-                <label>
-                  <%= t :description %>
-                  <%= f.text_field :description, class: "input" %>
-                </label>
-              </p>
-              <p>
-                <label>
-                  <%= t :reps %>
-                  <%= f.text_field :reps, class: "input" %>
-                </label>
-              </p>
-              <p>
-                <%= f.submit "Save", class: "btn" %>
-              </p>
-            <% end %>
-          </li>
+          <% if exercise_group.exercise_options.count < 7 %>
+            <li class="list-row pl-4 text-xl bg-gray-800 justify-center">
+              <%= form_with model: ExerciseOption.new, url: exercise_group_exercise_options_path(exercise_group) do |f| %>
+                <p>
+                  <label>
+                    <%= t :description %>
+                    <%= f.text_field :description, class: "input" %>
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    <%= t :reps %>
+                    <%= f.text_field :reps, class: "input" %>
+                  </label>
+                </p>
+                <p>
+                  <%= f.submit "Save", class: "btn" %>
+                </p>
+              <% end %>
+            </li>
+          <% end %>
         </ul>
       </div>
     </div>
