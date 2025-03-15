@@ -3,7 +3,7 @@ class ExerciseOptionsController < ApplicationController
   end
 
   def create
-    exercise_group = ExerciseGroup.find(params[:exercise_group_id])
+    exercise_group = current_user.exercise_groups.find(params[:exercise_group_id])
     exercise_option = exercise_group.exercise_options.build(exercise_option_params)
 
     if exercise_option.save

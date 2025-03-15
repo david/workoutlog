@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_13_180634) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_15_171033) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -28,7 +28,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_13_180634) do
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
     t.index ["name"], name: "index_exercise_groups_on_name", unique: true
+    t.index ["user_id"], name: "index_exercise_groups_on_user_id"
   end
 
   create_table "exercise_options", force: :cascade do |t|
@@ -46,9 +48,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_13_180634) do
     t.date "session_on"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_training_sessions_on_user_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "exercise_choices", "exercise_options"
   add_foreign_key "exercise_choices", "training_sessions"
+  add_foreign_key "exercise_groups", "users"
   add_foreign_key "exercise_options", "exercise_groups"
+  add_foreign_key "training_sessions", "users"
 end

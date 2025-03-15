@@ -8,7 +8,10 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-group1, group2, group3, group4, = 1.upto(8).map { |n| ExerciseGroup.find_or_create_by!(name: "Group #{n}") }
+user = User.find_or_create_by!(email: "guybrush@threepwood.com")
+
+group1, group2, group3, group4, = 1.upto(8).
+  map { |n| user.exercise_groups.find_or_create_by!(name: "Group #{n}") }
 
 group1.exercise_options.create_with(priority: 1, reps: 300).
   find_or_create_by(description: "Group 1, Option S")
@@ -40,7 +43,7 @@ group4.exercise_options.create_with(priority: 2, reps: 200).
 g4o3 = group4.exercise_options.create_with(priority: 3, reps: 100).
   find_or_create_by(description: "Group 4, Option C")
 
-TrainingSession.create_with(
+user.training_sessions.create_with(
   exercise_choices: [
     ExerciseChoice.new(exercise_option: g1o2, reps: 50),
     ExerciseChoice.new(exercise_option: g2o1, reps: 10),

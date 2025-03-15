@@ -1,6 +1,6 @@
 class ExerciseGroupsController < ApplicationController
   def create
-    exercise_group = ExerciseGroup.new(exercise_group_params)
+    exercise_group = current_user.exercise_groups.new(exercise_group_params)
 
     if exercise_group.save
       redirect_back fallback_location: training_sessions_path

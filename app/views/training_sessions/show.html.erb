@@ -46,7 +46,7 @@
             </li>
           <% end %>
           <li class="list-row pl-4 text-xl bg-gray-800 justify-center">
-            <%= form_with model: ExerciseGroup.new do |f| %>
+            <%= form_with model: exercise_groups.build do |f| %>
               <p>
                 <label>
                   <%= t :name %>
