@@ -2,7 +2,17 @@ class ApplicationController < ActionController::Base
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
   allow_browser versions: :modern
 
-  def current_user
-    User.find_by!(email: "guybrush@threepwood.com")
+  before_action :require_session
+
+  private def current_user
+    @current_user ||= User.find(session[:user_id]) if session[:user_id].present?
+  end
+
+  private def require_session
+    redirect_to new_authentication_path unless signed_in?
+  end
+
+  private def signed_in?
+    current_user.present?
   end
 end

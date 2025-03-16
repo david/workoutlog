@@ -1,0 +1,13 @@
+<h1>Training Log</h1>
+
+<%= form_with scope: :authentication, url: authentication_path do |f| %>
+  <p>
+    <%= f.label :email, class: "input" do %>
+      <%= f.text_field :email %>
+    <% end %>
+  </p>
+
+  <p>
+    <%= f.submit t(:login), class: "btn" %>
+  </p>
+<% end %>

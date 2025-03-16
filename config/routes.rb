@@ -20,6 +20,10 @@ Rails.application.routes.draw do
     resources :exercise_options, only: %i[new create]
   end
 
+  resource :authentication, only: %i[new create show]
+
+  get "sessions/create", to: "sessions#create", as: :create_session
+
   # Defines the root path route ("/")
   root "training_sessions#index"
 end
