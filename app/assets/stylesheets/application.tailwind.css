@@ -2,3 +2,7 @@
 
 @plugin "@tailwindcss/typography";
 @plugin "daisyui";
+
+.authentication-name {
+  @apply hidden;
+}

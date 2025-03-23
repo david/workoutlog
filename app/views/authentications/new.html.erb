@@ -1,6 +1,10 @@
 <h1>Training Log</h1>
 
 <%= form_with scope: :authentication, url: authentication_path do |f| %>
+  <%= f.label :name, class: "authentication-name" do %>
+    <%= f.text_field :name %>
+  <% end %>
+
   <p>
     <%= f.label :email, class: "input" do %>
       <%= f.text_field :email %>

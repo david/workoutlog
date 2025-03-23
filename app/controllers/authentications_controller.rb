@@ -6,7 +6,12 @@ class AuthenticationsController < ApplicationController
   end
 
   def create
-    user = User.find_or_create_by!(email: params[:authentication][:email])
+    if honeypot?
+      redirect_to authentication_path
+      return
+    end
+
+    user = User.find_or_create_by!(authentication_params)
     token = user.generate_token_for :authentication
 
     AuthenticationMailer.with(user:, token:).challenge_email.deliver_later
@@ -23,5 +28,9 @@ class AuthenticationsController < ApplicationController
 
   private def authentication_params
     params.expect(authentication: [ :email ])
+  end
+
+  private def honeypot?
+    params[:name].present?
   end
 end
