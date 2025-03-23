@@ -45,3 +45,9 @@
 # Ignore Docker-related files
 /.dockerignore
 /Dockerfile*
+
+# Ignore deploy files
+/deploy
+
+# Ignore vendor
+/vendor

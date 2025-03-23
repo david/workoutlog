@@ -1,4 +1,22 @@
-#!/bin/bash -e
+#!/bin/bash
+
+set -eo pipefail
+
+function setvar {
+  local var=$1
+  local secret=$2
+  local secret_file=/run/secrets/$secret
+
+  if [ ! -f $secret_file ]; then
+    >&2 echo "Missing secret $secret"
+    exit 1
+  fi
+
+  export "${var}=$(cat $secret_file)"
+}
+
+setvar POSTGRES_PASSWORD db-password
+setvar SECRET_KEY_BASE secret-key-base
 
 # Enable jemalloc for reduced memory usage and latency.
 if [ -z "${LD_PRELOAD+x}" ]; then
@@ -6,9 +24,11 @@ if [ -z "${LD_PRELOAD+x}" ]; then
     export LD_PRELOAD
 fi
 
-# If running the rails server then create or migrate existing database
-if [ "${@: -2:1}" == "./bin/rails" ] && [ "${@: -1:1}" == "server" ]; then
+if [ "${@: -1:1}" == "server" ] ; then
   ./bin/rails db:prepare
+
+  exec ./bin/rails server -p 80
+else
+  exec "${@}"
 fi
 
-exec "${@}"
