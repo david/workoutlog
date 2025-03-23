@@ -31,6 +31,6 @@ class AuthenticationsController < ApplicationController
   end
 
   private def honeypot?
-    params[:name].present?
+    params[:name].present? || params[:commit] != I18n.t("authentications.new.login")
   end
 end

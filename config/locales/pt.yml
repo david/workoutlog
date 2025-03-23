@@ -17,3 +17,7 @@ pt:
       - Outubro
       - Novembro
       - Dezembro
+
+  authentications:
+    new:
+      login: Registo/Entrar
