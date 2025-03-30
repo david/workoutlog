@@ -30,7 +30,7 @@ namespace :deploy do
     end
 
     puts "Pushing docker image..."
-    sh "docker push #{ENV["PROD_IMAGE"]}:latest ."
+    sh "docker push #{ENV["PROD_IMAGE"]}:latest"
     sh "docker stack deploy --with-registry-auth --prune -c docker-stack.yaml #{ENV["PROD_STACK"]}"
   end
 
