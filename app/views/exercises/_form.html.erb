@@ -1,0 +1,12 @@
+<%= form_with model: exercise do |f| %>
+  <p>
+    <label>
+      <%= t :name %>
+      <%= f.text_field :name, class: "input" %>
+    </label>
+  </p>
+
+  <p>
+    <%= f.submit "Save", class: "btn" %>
+  </p>
+<% end %>

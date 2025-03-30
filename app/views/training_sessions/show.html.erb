@@ -51,17 +51,8 @@
             </li>
           <% end %>
           <li class="list-row pl-4 text-xl justify-center">
-            <%= form_with model: current_user.exercises.build do |f| %>
-              <p>
-                <label>
-                  <%= t :name %>
-                  <%= f.text_field :name, class: "input" %>
-                </label>
-              </p>
-              <p>
-                <%= f.submit "Save", class: "btn" %>
-              </p>
-            <% end %>
+            <%= render partial: "exercises/form",
+              locals: { exercise: current_user.exercises.build } %>
           </li>
         </ul>
       </div>
