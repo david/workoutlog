@@ -1,17 +1,20 @@
-<h1>Training Log</h1>
+<div class="flex flex-col items-center min-h-screen pt-[30vh]">
+  <h1>Training Log</h1>
 
-<%= form_with scope: :authentication, url: authentication_path do |f| %>
-  <%= f.label :name, class: "authentication-name" do %>
-    <%= f.text_field :name %>
-  <% end %>
-
-  <p>
-    <%= f.label :email, class: "input" do %>
-      <%= f.text_field :email %>
+  <%= form_with scope: :authentication, url: authentication_path do |f| %>
+    <%= f.label :name, class: "authentication-name" do %>
+      <%= f.text_field :name %>
     <% end %>
-  </p>
 
-  <p>
-    <%= f.submit t(".login"), class: "btn" %>
-  </p>
-<% end %>
+    <div class="flex items-end space-x-2">
+      <p>
+        <%= f.label :email, class: "input" do %>
+          <%= f.text_field :email %>
+        <% end %>
+      </p>
+      <p>
+        <%= f.submit t(".login"), class: "btn" %>
+      </p>
+    </div>
+  <% end %>
+</div>
