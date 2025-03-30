@@ -18,7 +18,7 @@ class TrainingSessionsController < ApplicationController
         exercise_choices: training_session.exercise_choices.includes(:exercise_option),
         exercise: exercise_id.presence &&
           current_user.exercises.find_by(id: exercise_id),
-        exercises: current_user.exercises.all,
+        exercises: current_user.exercises,
         training_session:
       }
     end
