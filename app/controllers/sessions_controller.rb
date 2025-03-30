@@ -3,6 +3,7 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_by_token_for(:authentication, params[:token])
+
     sign_in user if user
 
     redirect_to root_path

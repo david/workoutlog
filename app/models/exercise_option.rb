@@ -1,7 +1,6 @@
 class ExerciseOption < ApplicationRecord
-  positioned on: :exercise_group, column: :priority
-
-  belongs_to :exercise_group
+  belongs_to :exercise
+  positioned on: :exercise, column: :priority
 
   has_many :exercise_choices
 

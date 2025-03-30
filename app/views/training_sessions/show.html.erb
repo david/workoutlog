@@ -1,6 +1,4 @@
-<%# locals: (exercise_choices:, exercise_group:, exercise_groups:, training_session:) %>
-
-<%# locals: (date:, exercise_groups:, group_index:) %>
+<%# locals: (exercise:, exercise_choices:, exercises:, training_session:) %>
 
 <main class="prose mx-auto">
   <h1 class="join flex justify-center text-3xl items-center mt-4 mb-8">
@@ -34,19 +32,19 @@
     <div class="flex">
       <div class="flex-1/3">
         <ul class="list">
-          <% exercise_groups.each do |group| %>
+          <% exercises.each do |ex| %>
             <% style =
-              if group == exercise_group
+              if ex == exercise
                 "border-l-accent border-2 border-t-0 border-r-0 border-b-0 rounded-none"
               end %>
 
             <li class="list-row pl-4 <%= style %>">
-              <%= link_to group.name, exercise_group_training_session_path(training_session, group),
+              <%= link_to ex.name, exercise_training_session_path(training_session, ex),
                 class: "no-underline" %>
             </li>
           <% end %>
           <li class="list-row pl-4 text-xl justify-center">
-            <%= form_with model: exercise_groups.build do |f| %>
+            <%= form_with model: current_user.exercises.build do |f| %>
               <p>
                 <label>
                   <%= t :name %>
@@ -62,11 +60,11 @@
       </div>
 
       <div class="flex-2/3">
-        <% if exercise_group %>
+        <% if exercise %>
           <ul class="list mt-0">
-            <% exercise_group.find_or_initialize_choices_for(training_session).each do |choice| %>
+            <% exercise.find_or_initialize_choices_for(training_session).each do |choice| %>
               <li class="list-row flex">
-                <div class="text-5xl flex-0"><%= exercise_priority(choice.priority) %></div>
+                <div class="text-5xl flex-0"><%= exercise_priority(choice.exercise_option.priority) %></div>
                 <div class="flex-1">
                   <p class="mt-0 mb-0"><%= choice.description %></p>
                   <p class="mt-0 mb-0 text-neutral-500">
@@ -81,9 +79,11 @@
               </li>
             <% end %>
 
-            <% if exercise_group.exercise_options.count < 7 %>
+            <% if exercise.exercise_options.count < 7 %>
               <li class="list-row pl-4 text-xl justify-center">
-                <%= form_with model: ExerciseOption.new, url: exercise_group_exercise_options_path(exercise_group) do |f| %>
+                <%= form_with model: ExerciseOption.new, url: exercise_exercise_options_path(
+                  exercise
+                ) do |f| %>
                   <p>
                     <label>
                       <%= t :description %>

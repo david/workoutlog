@@ -10,45 +10,45 @@
 
 user = User.find_or_create_by!(email: "guybrush@threepwood.com")
 
-group1, group2, group3, group4, = 1.upto(8).
-  map { |n| user.exercise_groups.find_or_create_by!(name: "Group #{n}") }
+exercise1, exercise2, exercise3, exercise4, = 1.upto(8).
+  map { |n| user.exercises.find_or_create_by!(name: "Exercise #{n}") }
 
-group1.exercise_options.create_with(priority: 1, reps: 300).
-  find_or_create_by(description: "Group 1, Option S")
-g1o2 = group1.exercise_options.create_with(priority: 2, reps: 200).
-  find_or_create_by(description: "Group 1, Option A")
-group1.exercise_options.create_with(priority: 3, reps: 100).
-  find_or_create_by(description: "Group 1, Option B")
-group1.exercise_options.create_with(priority: 4, reps: 50).
-  find_or_create_by(description: "Group 1, Option C")
-group1.exercise_options.create_with(priority: 5, reps: 25).
-  find_or_create_by(description: "Group 1, Option D")
+exercise1.exercise_options.create_with(priority: 1, reps: 300).
+  find_or_create_by(description: "Exercise 1, Option S")
+e1o2 = exercise1.exercise_options.create_with(priority: 2, reps: 200).
+  find_or_create_by(description: "Exercise 1, Option A")
+exercise1.exercise_options.create_with(priority: 3, reps: 100).
+  find_or_create_by(description: "Exercise 1, Option B")
+exercise1.exercise_options.create_with(priority: 4, reps: 50).
+  find_or_create_by(description: "Exercise 1, Option C")
+exercise1.exercise_options.create_with(priority: 5, reps: 25).
+  find_or_create_by(description: "Exercise 1, Option D")
 
-g2o1 = group2.exercise_options.create_with(priority: 1, reps: 300).
-  find_or_create_by(description: "Group 2, Option A")
-group2.exercise_options.create_with(priority: 2, reps: 200).
-  find_or_create_by(description: "Group 2, Option B")
-group2.exercise_options.create_with(priority: 3, reps: 100).
-  find_or_create_by(description: "Group 2, Option C")
+e2o1 = exercise2.exercise_options.create_with(priority: 1, reps: 300).
+  find_or_create_by(description: "Exercise 2, Option A")
+exercise2.exercise_options.create_with(priority: 2, reps: 200).
+  find_or_create_by(description: "Exercise 2, Option B")
+exercise2.exercise_options.create_with(priority: 3, reps: 100).
+  find_or_create_by(description: "Exercise 2, Option C")
 
-g3o1 = group3.exercise_options.create_with(priority: 1, reps: 300).
-  find_or_create_by(description: "Group 3, Option A")
-group3.exercise_options.create_with(priority: 2, reps: 200).
-  find_or_create_by(description: "Group 3, Option B")
+e3o1 = exercise3.exercise_options.create_with(priority: 1, reps: 300).
+  find_or_create_by(description: "Exercise 3, Option A")
+exercise3.exercise_options.create_with(priority: 2, reps: 200).
+  find_or_create_by(description: "Exercise 3, Option B")
 
-group4.exercise_options.create_with(priority: 1, reps: 300).
-  find_or_create_by(description: "Group 4, Option A")
-group4.exercise_options.create_with(priority: 2, reps: 200).
-  find_or_create_by(description: "Group 4, Option B")
-g4o3 = group4.exercise_options.create_with(priority: 3, reps: 100).
-  find_or_create_by(description: "Group 4, Option C")
+exercise4.exercise_options.create_with(priority: 1, reps: 300).
+  find_or_create_by(description: "Exercise 4, Option A")
+exercise4.exercise_options.create_with(priority: 2, reps: 200).
+  find_or_create_by(description: "Exercise 4, Option B")
+e4o3 = exercise4.exercise_options.create_with(priority: 3, reps: 100).
+  find_or_create_by(description: "Exercise 4, Option C")
 
 user.training_sessions.create_with(
   exercise_choices: [
-    ExerciseChoice.new(exercise_option: g1o2, reps: 50),
-    ExerciseChoice.new(exercise_option: g2o1, reps: 10),
-    ExerciseChoice.new(exercise_option: g3o1, reps: 20),
-    ExerciseChoice.new(exercise_option: g4o3, reps: 40)
+    ExerciseChoice.new(exercise_option: e1o2, reps: 50),
+    ExerciseChoice.new(exercise_option: e2o1, reps: 10),
+    ExerciseChoice.new(exercise_option: e3o1, reps: 20),
+    ExerciseChoice.new(exercise_option: e4o3, reps: 40)
   ],
   session_on: Date.yesterday
 ).find_or_create_by!(id: 1)

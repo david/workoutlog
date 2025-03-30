@@ -11,12 +11,12 @@ Rails.application.routes.draw do
     resources :exercise_choices
 
     member do
-      get "exercise_groups/:exercise_group_id", to: "training_sessions#show",
-        as: :exercise_group
+      get "exercises/:exercise_id", to: "training_sessions#show",
+        as: :exercise
     end
   end
 
-  resources :exercise_groups do
+  resources :exercises do
     resources :exercise_options, only: %i[new create]
   end
 

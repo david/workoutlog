@@ -1,4 +1,4 @@
-class ExerciseGroup < ApplicationRecord
+class Exercise < ApplicationRecord
   has_many :exercise_options, dependent: :destroy
 
   def find_or_initialize_choices_for(training_session)

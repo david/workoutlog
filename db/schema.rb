@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_16_221104) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_30_193300) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -24,23 +24,23 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_16_221104) do
     t.index ["training_session_id"], name: "index_exercise_choices_on_training_session_id"
   end
 
-  create_table "exercise_groups", force: :cascade do |t|
-    t.string "name", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "user_id", null: false
-    t.index ["user_id"], name: "index_exercise_groups_on_user_id"
-  end
-
   create_table "exercise_options", force: :cascade do |t|
-    t.bigint "exercise_group_id", null: false
+    t.bigint "exercise_id", null: false
     t.integer "priority"
     t.string "description"
     t.integer "reps"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["exercise_group_id", "priority"], name: "index_exercise_options_on_exercise_group_id_and_priority", unique: true
-    t.index ["exercise_group_id"], name: "index_exercise_options_on_exercise_group_id"
+    t.index ["exercise_id", "priority"], name: "index_exercise_options_on_exercise_id_and_priority", unique: true
+    t.index ["exercise_id"], name: "index_exercise_options_on_exercise_id"
+  end
+
+  create_table "exercises", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_exercises_on_user_id"
   end
 
   create_table "training_sessions", force: :cascade do |t|
@@ -59,7 +59,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_16_221104) do
 
   add_foreign_key "exercise_choices", "exercise_options"
   add_foreign_key "exercise_choices", "training_sessions"
-  add_foreign_key "exercise_groups", "users"
-  add_foreign_key "exercise_options", "exercise_groups"
+  add_foreign_key "exercise_options", "exercises"
+  add_foreign_key "exercises", "users"
   add_foreign_key "training_sessions", "users"
 end
