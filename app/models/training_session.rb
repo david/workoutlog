@@ -1,7 +1,7 @@
 class TrainingSession < ApplicationRecord
   has_many :exercise_choices
 
-  delegate :past?, to: :session_on
+  delegate :past?, :future?, to: :session_on
 
   def previous
     self.class.find_or_initialize_by(session_on: session_on - 1)

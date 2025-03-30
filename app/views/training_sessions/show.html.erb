@@ -7,8 +7,15 @@
     <span class="join-item btn-ghost font-bold min-w-64 text-center">
       <%= training_session.to_param %>
     </span>
-    <%= link_to "chevron_right", training_session_path(training_session.next),
-      class: "join-item btn-ghost material-symbols-outlined no-underline" %>
+
+    <% if training_session.future? %>
+      <%= link_to "chevron_right", training_session_path(training_session.next),
+            class: "join-item btn-ghost material-symbols-outlined no-underline" %>
+    <% else %>
+      <span class="join-item btn-ghost material-symbols-outlined no-underline btn-disabled">
+        chevron_right
+      </span>
+    <% end %>
   </h1>
 
   <% if training_session.past? %>
