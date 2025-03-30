@@ -45,7 +45,7 @@
                 class: "no-underline" %>
             </li>
           <% end %>
-          <li class="list-row pl-4 text-xl bg-gray-800 justify-center">
+          <li class="list-row pl-4 text-xl justify-center">
             <%= form_with model: exercise_groups.build do |f| %>
               <p>
                 <label>
@@ -75,14 +75,14 @@
                 </div>
                 <%= form_with model: [training_session, choice], class: "flex-0 min-w-20" do |f| %>
                   <%= f.hidden_field :exercise_option_id %>
-                  <%= f.number_field :reps, placeholder: "0", 
+                  <%= f.number_field :reps, placeholder: "0",
                     class: "input text-3xl h-full text-right" %>
                 <% end %>
               </li>
             <% end %>
 
             <% if exercise_group.exercise_options.count < 7 %>
-              <li class="list-row pl-4 text-xl bg-gray-800 justify-center">
+              <li class="list-row pl-4 text-xl justify-center">
                 <%= form_with model: ExerciseOption.new, url: exercise_group_exercise_options_path(exercise_group) do |f| %>
                   <p>
                     <label>
