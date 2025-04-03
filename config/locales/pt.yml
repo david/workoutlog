@@ -22,6 +22,10 @@ pt:
     new:
       login: Registo/Entrar
 
+  exercises:
+    form:
+      example_name: "Flexões de braços"
+
   training_sessions:
     show:
       exopt:

@@ -1,9 +1,6 @@
 <%= form_with model: exercise do |f| %>
   <p>
-    <label>
-      <%= t :name %>
-      <%= f.text_field :name, class: "input" %>
-    </label>
+  <%= f.text_field :name, class: "input", placeholder: t(".example_name") %>
   </p>
 
   <p>
