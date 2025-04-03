@@ -21,3 +21,10 @@ pt:
   authentications:
     new:
       login: Registo/Entrar
+
+  training_sessions:
+    show:
+      exopt:
+        description: "Descrição"
+        name: "Variante"
+        reps: "Reps"

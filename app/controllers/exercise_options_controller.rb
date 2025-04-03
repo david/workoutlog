@@ -14,6 +14,6 @@ class ExerciseOptionsController < ApplicationController
   end
 
   private def exercise_option_params
-    params.expect(exercise_option: %i[description reps])
+    params.expect(exercise_option: %i[description name reps])
   end
 end

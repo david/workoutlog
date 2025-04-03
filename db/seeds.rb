@@ -14,34 +14,34 @@ exercise1, exercise2, exercise3, exercise4, = 1.upto(8).
   map { |n| user.exercises.find_or_create_by!(name: "Exercise #{n}") }
 
 exercise1.exercise_options.create_with(priority: 1, reps: 300).
-  find_or_create_by(description: "Exercise 1, Option S")
+  find_or_create_by(name: "Generic name", description: "Exercise 1, Option S")
 e1o2 = exercise1.exercise_options.create_with(priority: 2, reps: 200).
-  find_or_create_by(description: "Exercise 1, Option A")
+  find_or_create_by(name: "Generic name", description: "Exercise 1, Option A")
 exercise1.exercise_options.create_with(priority: 3, reps: 100).
-  find_or_create_by(description: "Exercise 1, Option B")
+  find_or_create_by(name: "Generic name", description: "Exercise 1, Option B")
 exercise1.exercise_options.create_with(priority: 4, reps: 50).
-  find_or_create_by(description: "Exercise 1, Option C")
+  find_or_create_by(name: "Generic name", description: "Exercise 1, Option C")
 exercise1.exercise_options.create_with(priority: 5, reps: 25).
-  find_or_create_by(description: "Exercise 1, Option D")
+  find_or_create_by(name: "Generic name", description: "Exercise 1, Option D")
 
 e2o1 = exercise2.exercise_options.create_with(priority: 1, reps: 300).
-  find_or_create_by(description: "Exercise 2, Option A")
+  find_or_create_by(name: "Generic name", description: "Exercise 2, Option A")
 exercise2.exercise_options.create_with(priority: 2, reps: 200).
-  find_or_create_by(description: "Exercise 2, Option B")
+  find_or_create_by(name: "Generic name", description: "Exercise 2, Option B")
 exercise2.exercise_options.create_with(priority: 3, reps: 100).
-  find_or_create_by(description: "Exercise 2, Option C")
+  find_or_create_by(name: "Generic name", description: "Exercise 2, Option C")
 
 e3o1 = exercise3.exercise_options.create_with(priority: 1, reps: 300).
-  find_or_create_by(description: "Exercise 3, Option A")
+  find_or_create_by(name: "Generic name", description: "Exercise 3, Option A")
 exercise3.exercise_options.create_with(priority: 2, reps: 200).
-  find_or_create_by(description: "Exercise 3, Option B")
+  find_or_create_by(name: "Generic name", description: "Exercise 3, Option B")
 
 exercise4.exercise_options.create_with(priority: 1, reps: 300).
-  find_or_create_by(description: "Exercise 4, Option A")
+  find_or_create_by(name: "Generic name", description: "Exercise 4, Option A")
 exercise4.exercise_options.create_with(priority: 2, reps: 200).
-  find_or_create_by(description: "Exercise 4, Option B")
+  find_or_create_by(name: "Generic name", description: "Exercise 4, Option B")
 e4o3 = exercise4.exercise_options.create_with(priority: 3, reps: 100).
-  find_or_create_by(description: "Exercise 4, Option C")
+  find_or_create_by(name: "Generic name", description: "Exercise 4, Option C")
 
 user.training_sessions.create_with(
   exercise_choices: [

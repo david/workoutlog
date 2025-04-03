@@ -64,7 +64,7 @@
               <li class="list-row flex">
                 <div class="text-5xl flex-0"><%= exercise_priority(choice.exercise_option.priority) %></div>
                 <div class="flex-1">
-                  <p class="mt-0 mb-0"><%= choice.description %></p>
+                  <p class="mt-0 mb-0"><%= choice.exercise_option.name %></p>
                   <p class="mt-0 mb-0 text-neutral-500">
                     <%= choice.exercise_option.reps %> <%= t :reps %>
                   </p>
@@ -82,18 +82,18 @@
                 <%= form_with model: ExerciseOption.new, url: exercise_exercise_options_path(
                   exercise
                 ) do |f| %>
-                  <p>
-                    <label>
-                      <%= t :description %>
-                      <%= f.text_field :description, class: "input" %>
-                    </label>
+                  <p class="flex gap-2">
+                    <%= f.text_field :name, class: "input", placeholder: t(".exopt.name"),
+                      required: true %>
+                    <%= f.text_field :reps, class: "input flex-1/5", placeholder: t(".exopt.reps"),
+                      required: true %>
                   </p>
+
                   <p>
-                    <label>
-                      <%= t :reps %>
-                      <%= f.text_field :reps, class: "input" %>
-                    </label>
+                    <%= f.text_area :description, class: "textarea",
+                      placeholder: t(".exopt.description") %>
                   </p>
+
                   <p>
                     <%= f.submit "Save", class: "btn" %>
                   </p>
