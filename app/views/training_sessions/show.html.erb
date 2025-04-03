@@ -35,6 +35,10 @@
         <% end %>
       </tbody>
     </table>
+  <% elsif exercises.empty? %>
+    <p><%= t ".no_exercises" %></p>
+
+    <%= render partial: "exercises/form", locals: { exercise: current_user.exercises.build } %>
   <% else %>
     <div class="flex">
       <div class="flex-1/3">

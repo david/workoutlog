@@ -32,3 +32,4 @@ pt:
         description: "Descrição"
         name: "Variante"
         reps: "Reps"
+      no_exercises: "Cria o primeiro exercício para começar."
