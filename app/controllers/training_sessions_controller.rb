@@ -1,10 +1,12 @@
 class TrainingSessionsController < ApplicationController
   def index
-    redirect_to training_session_path(I18n.l(Date.today, format: :ymd))
+    redirect_to training_session_path(current_user.training_sessions.today)
   end
 
   def show
-    if current_training_session.today?
+    if current_training_session.future?
+      redirect_to training_session_path(current_user.training_sessions.today)
+    elsif current_training_session.today?
       if current_user.exercises.exists?
         redirect_to training_session_exercise_path(
           current_training_session,

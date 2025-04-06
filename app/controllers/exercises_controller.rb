@@ -1,4 +1,6 @@
 class ExercisesController < ApplicationController
+  before_action :redirect_if_future_session
+
   def create
     exercise = current_user.exercises.new(exercise_params)
 
@@ -23,5 +25,11 @@ class ExercisesController < ApplicationController
 
   private def exercise_params
     params.require(:exercise).permit(:name)
+  end
+
+  private def redirect_if_future_session
+    if current_training_session.future?
+      redirect_to training_session_path(current_user.training_sessions.today)
+    end
   end
 end
