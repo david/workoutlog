@@ -25,11 +25,11 @@ pt:
   exercises:
     form:
       example_name: "Flexões de braços"
-
-  training_sessions:
     show:
       exopt:
         description: "Descrição"
         name: "Variante"
         reps: "Reps"
+
+  training_sessions:
       no_exercises: "Cria o primeiro exercício para começar."

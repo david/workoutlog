@@ -4,22 +4,20 @@ class TrainingSessionsController < ApplicationController
   end
 
   def show
-    training_session = current_user.training_sessions.
-      find_or_initialize_by(session_on: params[:session_on])
-    exercise_id = params[:exercise_id]
-
-    if exercise_id.blank? && current_user.exercises.exists?
-      redirect_to exercise_training_session_path(
-        training_session,
-        current_user.exercises.first
-      )
+    if current_training_session.today?
+      if current_user.exercises.exists?
+        redirect_to training_session_exercise_path(
+          current_training_session,
+          current_user.exercises.first
+        )
+      else
+        redirect_to new_training_session_exercise_path(current_training_session)
+      end
     else
       render locals: {
-        exercise_choices: training_session.exercise_choices.includes(:exercise_option),
-        exercise: exercise_id.presence &&
-          current_user.exercises.find_by(id: exercise_id),
+        exercise_choices: current_training_session.exercise_choices.includes(:exercise_option),
         exercises: current_user.exercises,
-        training_session:
+        training_session: current_training_session
       }
     end
   end

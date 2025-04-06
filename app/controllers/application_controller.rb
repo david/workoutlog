@@ -4,6 +4,12 @@ class ApplicationController < ActionController::Base
 
   before_action :require_session
 
+  private def current_training_session
+    @current_training_session ||= current_user.training_sessions.find_or_initialize_by(
+      session_on: params[:session_on] || params[:training_session_session_on]
+    )
+  end
+
   helper_method :current_user
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id].present?

@@ -8,12 +8,8 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   resources :training_sessions, param: :session_on, only: %i[index show] do
+    resources :exercises
     resources :exercise_choices
-
-    member do
-      get "exercises/:exercise_id", to: "training_sessions#show",
-        as: :exercise
-    end
   end
 
   resources :exercises do

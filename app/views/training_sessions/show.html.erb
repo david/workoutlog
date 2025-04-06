@@ -1,4 +1,4 @@
-<%# locals: (exercise:, exercise_choices:, exercises:, training_session:) %>
+<%# locals: (exercise_choices:, exercises:, training_session:) %>
 
 <% content_for :navbar do %>
   <h1 class="join flex justify-center text-3xl items-center mt-4 mb-8">
@@ -20,95 +20,20 @@
 <% end %>
 
 <main class="prose mx-auto">
-  <% if training_session.past? %>
-    <table class="table">
-      <thead>
-        <th><%= t :priority %></th>
-        <th><%= t :description %></th>
-        <th class="text-right"><%= t :reps %></th>
-      </thead>
-      <tbody>
-        <% exercise_choices.each do |choice| %>
-          <tr>
-            <td><%= exercise_priority(choice.exercise_option.priority) %></td>
-            <td><%= choice.exercise_option.description %></td>
-            <td class="text-right"><%= choice.reps %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  <% elsif exercises.empty? %>
-    <p><%= t ".no_exercises" %></p>
-
-    <%= render partial: "exercises/form", locals: { exercise: current_user.exercises.build } %>
-  <% else %>
-    <div class="flex">
-      <div class="hidden md:flex-1/3">
-        <ul class="list">
-          <% exercises.each do |ex| %>
-            <% style =
-              if ex == exercise
-                "border-l-accent border-2 border-t-0 border-r-0 border-b-0 rounded-none"
-              end %>
-
-            <li class="list-row pl-4 <%= style %>">
-              <%= link_to ex.name, exercise_training_session_path(training_session, ex),
-                class: "no-underline" %>
-            </li>
-          <% end %>
-          <li class="list-row pl-4 text-xl justify-center">
-            <%= render partial: "exercises/form",
-              locals: { exercise: current_user.exercises.build } %>
-          </li>
-        </ul>
-      </div>
-
-      <div class="flex-2/3">
-        <% if exercise %>
-          <ul class="list mt-0">
-            <% exercise.find_or_initialize_choices_for(training_session).each do |choice| %>
-              <li class="list-row flex">
-                <div class="text-5xl flex-0"><%= exercise_priority(choice.exercise_option.priority) %></div>
-                <div class="flex-1">
-                  <p class="mt-0 mb-0"><%= choice.exercise_option.name %></p>
-                  <p class="mt-0 mb-0 text-neutral-500">
-                    <%= choice.exercise_option.reps %> <%= t :reps %>
-                  </p>
-                </div>
-                <%= form_with model: [training_session, choice], class: "flex-0 min-w-20" do |f| %>
-                  <%= f.hidden_field :exercise_option_id %>
-                  <%= f.number_field :reps, placeholder: "0",
-                    class: "input text-3xl h-full text-right" %>
-                <% end %>
-              </li>
-            <% end %>
-
-            <% if exercise.exercise_options.count < 7 %>
-              <li class="list-row pl-4 text-xl justify-center">
-                <%= form_with model: ExerciseOption.new, url: exercise_exercise_options_path(
-                  exercise
-                ) do |f| %>
-                  <p class="flex gap-2">
-                    <%= f.text_field :name, class: "input", placeholder: t(".exopt.name"),
-                      required: true %>
-                    <%= f.text_field :reps, class: "input flex-1/5", placeholder: t(".exopt.reps"),
-                      required: true %>
-                  </p>
-
-                  <p>
-                    <%= f.text_area :description, class: "textarea",
-                      placeholder: t(".exopt.description") %>
-                  </p>
-
-                  <p>
-                    <%= f.submit "Save", class: "btn" %>
-                  </p>
-                <% end %>
-              </li>
-            <% end %>
-          </ul>
-        <% end %>
-      </div>
-    </div>
-  <% end %>
+  <table class="table">
+    <thead>
+      <th><%= t :priority %></th>
+      <th><%= t :description %></th>
+      <th class="text-right"><%= t :reps %></th>
+    </thead>
+    <tbody>
+      <% exercise_choices.each do |choice| %>
+        <tr>
+          <td><%= exercise_priority(choice.exercise_option.priority) %></td>
+          <td><%= choice.exercise_option.description %></td>
+          <td class="text-right"><%= choice.reps %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </main>

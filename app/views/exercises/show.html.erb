@@ -1,0 +1,69 @@
+<main class="prose mx-auto">
+  <div class="flex">
+    <div class="flex-1/3">
+      <ul class="list">
+        <% exercises.each do |ex| %>
+          <% style =
+            if ex == exercise
+              "border-l-accent border-2 border-t-0 border-r-0 border-b-0 rounded-none"
+            end %>
+
+            <li class="list-row pl-4 <%= style %>">
+              <%= link_to ex.name, training_session_exercise_path(training_session, ex),
+                class: "no-underline" %>
+          </li>
+        <% end %>
+        <li class="list-row pl-4 text-xl justify-center">
+          <%= render partial: "exercises/form",
+            locals: { exercise: current_user.exercises.build } %>
+        </li>
+      </ul>
+    </div>
+
+    <div class="flex-2/3">
+      <ul class="list mt-0">
+        <% exercise.find_or_initialize_choices_for(training_session).each do |choice| %>
+          <li class="list-row flex">
+            <div class="text-5xl flex-0"><%= exercise_priority(choice.exercise_option.priority) %></div>
+            <div class="flex-1">
+              <p class="mt-0 mb-0"><%= choice.exercise_option.name %></p>
+              <p class="mt-0 mb-0 text-neutral-500">
+              <%= choice.exercise_option.reps %> <%= t :reps %>
+              </p>
+            </div>
+            <%= form_with model: [training_session, choice], class: "flex-0 min-w-20" do |f| %>
+              <%= f.hidden_field :exercise_option_id %>
+              <%= f.number_field :reps, placeholder: "0",
+                class: "input text-3xl h-full text-right" %>
+            <% end %>
+          </li>
+        <% end %>
+
+        <% if exercise.exercise_options.count < 7 %>
+          <li class="list-row pl-4 text-xl justify-center">
+            <%= form_with model: ExerciseOption.new, url: exercise_exercise_options_path(
+              exercise
+            ) do |f| %>
+            <p class="flex gap-2">
+            <%= f.text_field :name, class: "input", placeholder: t(".exopt.name"),
+              required: true %>
+            <%= f.text_field :reps, class: "input flex-1/5", placeholder: t(".exopt.reps"),
+              required: true %>
+          </p>
+
+          <p>
+          <%= f.text_area :description, class: "textarea",
+            placeholder: t(".exopt.description") %>
+        </p>
+
+        <p>
+        <%= f.submit "Save", class: "btn" %>
+        </p>
+      <% end %>
+          </li>
+        <% end %>
+      </ul>
+
+    </div>
+  </div>
+</main>

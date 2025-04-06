@@ -1,0 +1,6 @@
+  <% if exercises.empty? %>
+    <p><%= t ".no_exercises" %></p>
+  <% end %>
+
+  <%= render partial: "form", locals: { exercise: current_user.exercises.build } %>
+
