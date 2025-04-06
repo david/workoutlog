@@ -1,6 +1,6 @@
 <%# locals: (exercise:, exercise_choices:, exercises:, training_session:) %>
 
-<main class="prose mx-auto">
+<% content_for :navbar do %>
   <h1 class="join flex justify-center text-3xl items-center mt-4 mb-8">
     <%= link_to "chevron_left", training_session_path(training_session.previous),
       class: "join-item btn-ghost material-symbols-outlined no-underline" %>
@@ -17,7 +17,9 @@
       </span>
     <% end %>
   </h1>
+<% end %>
 
+<main class="prose mx-auto">
   <% if training_session.past? %>
     <table class="table">
       <thead>
@@ -41,7 +43,7 @@
     <%= render partial: "exercises/form", locals: { exercise: current_user.exercises.build } %>
   <% else %>
     <div class="flex">
-      <div class="flex-1/3">
+      <div class="hidden md:flex-1/3">
         <ul class="list">
           <% exercises.each do |ex| %>
             <% style =
