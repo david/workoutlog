@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: <%= ActiveRecord::FixtureSet.identify(:one) %>
+  name: Push Ups
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+two:
+  user_id: <%= ActiveRecord::FixtureSet.identify(:one) %>
+  name: Squats
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+three:
+  user_id: <%= ActiveRecord::FixtureSet.identify(:two) %>
+  name: Pull Ups
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>

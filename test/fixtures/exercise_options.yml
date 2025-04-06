@@ -1,0 +1,28 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  exercise_id: <%= ActiveRecord::FixtureSet.identify(:one) %>
+  priority: 1
+  name: "Standard"
+  description: "Standard push ups"
+  reps: 10
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+two:
+  exercise_id: <%= ActiveRecord::FixtureSet.identify(:one) %>
+  priority: 2
+  name: "Wide Grip"
+  description: "Wide grip push ups"
+  reps: 8
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+three:
+  exercise_id: <%= ActiveRecord::FixtureSet.identify(:two) %>
+  priority: 1
+  name: "Bodyweight"
+  description: "Regular bodyweight squats"
+  reps: 15
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
