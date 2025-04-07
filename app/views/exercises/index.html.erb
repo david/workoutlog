@@ -1,7 +1,7 @@
 <%# locals: (exercise_choices:, exercises:, training_session:) %>
 
 <% content_for :navbar do %>
-  <h1 class="flex items-center gap-2">
+  <span class="flex items-center gap-2">
     <span class="flex items-center">
       <%= nav_link_to "chevron_left", training_session_path(training_session.previous) %>
       <%= nav_link_to "chevron_right", training_session_path(training_session.next),
@@ -11,7 +11,7 @@
     <span class="btn-ghost font-bold min-w-64">
       <%= training_session.to_param %>
     </span>
-  </h1>
+  </span>
 <% end %>
 
 <main class="prose mx-auto">
