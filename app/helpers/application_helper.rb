@@ -20,4 +20,15 @@ module ApplicationHelper
 
     content_tag(:span, %w[~ S A B C D E F][priority], class: color)
   end
+
+  def nav_link_to(icon_name, path, disabled: false)
+    css_classes = "btn-ghost material-symbols-outlined no-underline"
+
+    if disabled
+      css_classes += " btn-disabled"
+      content_tag(:span, icon_name, class: css_classes)
+    else
+      link_to(icon_name, path, class: css_classes)
+    end
+  end
 end

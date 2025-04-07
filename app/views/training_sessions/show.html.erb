@@ -2,20 +2,13 @@
 
 <% content_for :navbar do %>
   <h1 class="flex items-center">
-    <%= link_to "chevron_left", training_session_path(training_session.previous),
-      class: "join-item btn-ghost material-symbols-outlined no-underline" %>
-    <span class="join-item btn-ghost font-bold min-w-64 text-center">
+    <%= nav_link_to "chevron_left", training_session_path(training_session.previous) %>
+    <%= nav_link_to "chevron_right", training_session_path(training_session.next),
+      disabled: training_session.future? %>
+
+    <span class="btn-ghost font-bold min-w-64 text-center">
       <%= training_session.to_param %>
     </span>
-
-    <% if training_session.future? %>
-      <%= link_to "chevron_right", training_session_path(training_session.next),
-            class: "join-item btn-ghost material-symbols-outlined no-underline" %>
-    <% else %>
-      <span class="join-item btn-ghost material-symbols-outlined no-underline btn-disabled">
-        chevron_right
-      </span>
-    <% end %>
   </h1>
 <% end %>
 

@@ -2,8 +2,8 @@
 
 <% content_for :navbar do %>
   <span class="flex items-center gap-2 justify-start">
-    <%= link_to "arrow_back", training_session_path(training_session),
-      class: "btn-ghost material-symbols-outlined no-underline" %>
+    <%= nav_link_to "arrow_back", training_session_path(training_session) %>
+
     <span class="btn-ghost font-bold whitespace-nowrap truncate overflow-hidden">
       <%= exercise.name %>
     </span>
