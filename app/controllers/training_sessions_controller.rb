@@ -16,11 +16,7 @@ class TrainingSessionsController < ApplicationController
         redirect_to new_training_session_exercise_path(current_training_session)
       end
     else
-      render locals: {
-        exercise_choices: current_training_session.exercise_choices.includes(:exercise_option),
-        exercises: current_user.exercises,
-        training_session: current_training_session
-      }
+      redirect_to training_session_exercises_path(current_training_session)
     end
   end
 end

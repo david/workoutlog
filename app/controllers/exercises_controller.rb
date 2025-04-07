@@ -11,6 +11,14 @@ class ExercisesController < ApplicationController
     end
   end
 
+  def index
+    render locals: {
+      exercise_choices: current_training_session.exercise_choices.includes(:exercise_option),
+      exercises: current_user.exercises,
+      training_session: current_training_session
+    }
+  end
+
   def new
     render locals: { exercises: current_user.exercises }
   end
