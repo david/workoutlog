@@ -2,7 +2,7 @@
 
 <% content_for :navbar do %>
   <span class="flex items-center gap-2 justify-start">
-    <%= nav_link_to "arrow_back", training_session_path(training_session) %>
+    <%= nav_link_to "arrow_back", training_session_exercises_path(training_session) %>
 
     <span class="btn-ghost font-bold whitespace-nowrap truncate overflow-hidden">
       <%= exercise.name %>
