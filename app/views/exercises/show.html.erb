@@ -34,7 +34,7 @@
             <%= form_with model: [training_session, choice], class: "flex-0 min-w-20" do |f| %>
               <%= f.hidden_field :exercise_option_id %>
               <%= f.number_field :reps, placeholder: "0",
-                class: "input text-3xl h-full text-right" %>
+                class: "input text-3xl text-right pr-6" %>
             <% end %>
           </li>
         <% end %>
