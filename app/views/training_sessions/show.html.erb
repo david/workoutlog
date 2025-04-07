@@ -1,7 +1,7 @@
 <%# locals: (exercise_choices:, exercises:, training_session:) %>
 
 <% content_for :navbar do %>
-  <h1 class="join flex justify-center text-3xl items-center mt-4 mb-8">
+  <h1 class="flex items-center">
     <%= link_to "chevron_left", training_session_path(training_session.previous),
       class: "join-item btn-ghost material-symbols-outlined no-underline" %>
     <span class="join-item btn-ghost font-bold min-w-64 text-center">
