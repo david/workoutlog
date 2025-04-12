@@ -31,4 +31,10 @@ module ApplicationHelper
       link_to(icon_name, path, class: css_classes)
     end
   end
+
+  def add_link_to(path)
+    link_to path, class: "btn btn-circle btn-ghost" do
+      content_tag(:span, "add", class: "material-symbols-outlined text-gray-400")
+    end
+  end
 end
