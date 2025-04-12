@@ -25,6 +25,9 @@ pt:
   exercises:
     form:
       example_name: "Flexões de braços"
+      submit: "Guardar"
+    new:
+      title: "Novo exercício"
     show:
 
   exercise_options:
@@ -36,4 +39,4 @@ pt:
       title: "Nova variante"
 
   training_sessions:
-      no_exercises: "Cria o primeiro exercício para começar."
+    no_exercises: "Cria o primeiro exercício para começar."

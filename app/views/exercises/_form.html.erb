@@ -1,9 +1,9 @@
-<%= form_with model: exercise do |f| %>
-  <p>
-  <%= f.text_field :name, class: "input", placeholder: t(".example_name") %>
-  </p>
+<%= form_with model: exercise, class: "flex flex-col" do |f| %>
+  <fieldset class="fieldset flex">
+    <%= f.text_field :name, class: "input flex-1", placeholder: t(".example_name") %>
+  </fieldset>
 
-  <p>
-    <%= f.submit "Save", class: "btn" %>
-  </p>
+  <fieldset class="fieldset flex">
+    <%= f.submit t(".submit"), class: "btn flex-1" %>
+  </fieldset>
 <% end %>

@@ -1,17 +1,24 @@
 <%# locals: (exercises:, training_session:, exercise_choices: nil) %>
 
 <% content_for :navbar do %>
-  <span class="flex items-center gap-2">
-    <span class="flex items-center">
-      <%= nav_link_to "chevron_left", training_session_path(training_session.previous) %>
-      <%= nav_link_to "chevron_right", training_session_path(training_session.next),
-        disabled: training_session.future? %>
+  <div class="flex-1 flex items-center justify-between">
+    <span class="flex items-center gap-2 justify-start">
+      <span class="flex items-center">
+        <%= nav_link_to "chevron_left", training_session_path(training_session.previous) %>
+        <%= nav_link_to "chevron_right", training_session_path(training_session.next),
+          disabled: training_session.future? %>
+      </span>
+
+      <span class="btn-ghost font-bold min-w-64">
+        <%= training_session.to_param %>
+      </span>
     </span>
 
-    <span class="btn-ghost font-bold min-w-64">
-      <%= training_session.to_param %>
-    </span>
-  </span>
+    <%= link_to new_exercise_path,
+      class: "btn btn-circle btn-ghost" do %>
+      <span class="material-symbols-outlined text-gray-400">add</span>
+    <% end %>
+  </div>
 <% end %>
 
 <main class="container mx-auto px-4 py-4">
@@ -19,15 +26,11 @@
     <% exercises.each do |ex| %>
       <li class="list-row hover:bg-gray-50">
         <%= link_to exercise_path(ex),
-                class: "flex justify-between items-center w-full no-underline px-4 py-3" do %>
+                class: "flex justify-between items-center w-full no-underline py-3" do %>
           <span><%= ex.name %></span>
           <span class="material-symbols-outlined text-gray-400">chevron_right</span>
         <% end %>
       </li>
     <% end %>
-    <li class="list-row pl-4 text-xl justify-center">
-      <%= render partial: "exercises/form",
-        locals: { exercise: current_user.exercises.build } %>
-    </li>
   </ul>
 </main>

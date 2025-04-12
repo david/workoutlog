@@ -1,6 +1,18 @@
-  <% if exercises.empty? %>
-    <p><%= t ".no_exercises" %></p>
-  <% end %>
+<%# locals: (exercise:) %>
 
-  <%= render partial: "form", locals: { exercise: current_user.exercises.build } %>
+<% content_for :navbar do %>
+  <div class="flex-1 flex items-center justify-between">
+    <span class="flex items-center gap-2 justify-start">
+      <%= nav_link_to "arrow_back", exercises_path %>
+
+      <span class="btn-ghost font-bold whitespace-nowrap truncate overflow-hidden">
+        <%= t ".title" %>
+      </span>
+    </span>
+  </div>
+<% end %>
+
+<main class="prose mx-auto px-4">
+  <%= render partial: "form", locals: { exercise: exercise } %>
+</main>
 
