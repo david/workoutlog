@@ -15,20 +15,24 @@
 <% end %>
 
 <main class="prose mx-auto">
-  <table class="table">
-    <thead>
-      <th><%= t :priority %></th>
-      <th><%= t :description %></th>
-      <th class="text-right"><%= t :reps %></th>
-    </thead>
-    <tbody>
-      <% exercise_choices.each do |choice| %>
-        <tr>
-          <td><%= exercise_priority(choice.exercise_option.priority) %></td>
-          <td><%= choice.exercise_option.description %></td>
-          <td class="text-right"><%= choice.reps %></td>
-        </tr>
+  <% if training_session.today? %>
+    <ul class="list">
+      <% exercises.each do |ex| %>
+        <li class="list-row pl-4">
+          <%= link_to ex.name, training_session_exercise_path(training_session, ex),
+                  class: "no-underline" %>
+        </li>
       <% end %>
-    </tbody>
-  </table>
+    </ul>
+  <% elsif training_session.past? %>
+    <ul class="list">
+      <% exercise_choices.each do |choice| %>
+        <li>
+          <span><%= exercise_priority(choice.exercise_option.priority) %></span>
+          <span><%= choice.exercise_option.description %></span>
+          <span class="text-right"><%= choice.reps %></span>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
 </main>
