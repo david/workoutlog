@@ -5,9 +5,14 @@ class ApplicationController < ActionController::Base
   before_action :require_session
 
   private def current_training_session
-    @current_training_session ||= current_user.training_sessions.find_or_initialize_by(
-      session_on: params[:session_on] || params[:training_session_session_on]
-    )
+    @current_training_session ||=
+      begin
+        if session_on = (params[:session_on] || params[:training_session_session_on])
+          current_user.training_sessions.find_or_initialize_by(session_on:)
+        else
+          current_user.training_sessions.today
+        end
+      end
   end
 
   helper_method :current_user
