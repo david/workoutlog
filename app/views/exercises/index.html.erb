@@ -1,4 +1,4 @@
-<%# locals: (exercise_choices:, exercises:, training_session:) %>
+<%# locals: (exercises:, training_session:, exercise_choices: nil) %>
 
 <% content_for :navbar do %>
   <span class="flex items-center gap-2">
@@ -15,29 +15,19 @@
 <% end %>
 
 <main class="container mx-auto px-4 py-4">
-  <% if training_session.today? %>
-    <ul class="divide-y divide-gray-200">
-      <% exercises.each do |ex| %>
-        <li class="list-row hover:bg-gray-50">
-          <%= link_to training_session_exercise_path(training_session, ex),
-                  class: "flex justify-between items-center w-full no-underline px-4 py-3" do %>
-            <span><%= ex.name %></span>
-            <span class="material-symbols-outlined text-gray-400">chevron_right</span>
-          <% end %>
-        </li>
-      <% end %>
-    </ul>
-  <% elsif training_session.past? %>
-    <ul class="divide-y divide-gray-200">
-      <% exercise_choices.each do |choice| %>
-        <li class="flex justify-between items-center py-3 px-4">
-          <span class="flex items-center gap-3">
-            <span class="w-4"><%= exercise_priority(choice.exercise_option.priority) %></span>
-            <span><%= choice.exercise_option.description %></span>
-          </span>
-          <span class="text-right text-gray-600"><%= choice.reps %> reps</span>
-        </li>
-      <% end %>
-    </ul>
-  <% end %>
+  <ul class="divide-y divide-gray-200">
+    <% exercises.each do |ex| %>
+      <li class="list-row hover:bg-gray-50">
+        <%= link_to exercise_path(ex),
+                class: "flex justify-between items-center w-full no-underline px-4 py-3" do %>
+          <span><%= ex.name %></span>
+          <span class="material-symbols-outlined text-gray-400">chevron_right</span>
+        <% end %>
+      </li>
+    <% end %>
+    <li class="list-row pl-4 text-xl justify-center">
+      <%= render partial: "exercises/form",
+        locals: { exercise: current_user.exercises.build } %>
+    </li>
+  </ul>
 </main>

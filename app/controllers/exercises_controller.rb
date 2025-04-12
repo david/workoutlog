@@ -1,43 +1,42 @@
 class ExercisesController < ApplicationController
-  before_action :redirect_if_future_session
-
   def create
     exercise = current_user.exercises.new(exercise_params)
 
     if exercise.save
-      redirect_to [ current_training_session, exercise ]
+      redirect_to exercise_path(exercise)
     else
       raise exercise.errors.inspect
     end
   end
 
   def index
+    training_session = todays_training_session
+
     render locals: {
-      exercise_choices: current_training_session.exercise_choices.includes(:exercise_option),
       exercises: current_user.exercises,
-      training_session: current_training_session
+      training_session:
     }
   end
 
   def new
-    render locals: { exercises: current_user.exercises }
+    render locals: {
+      exercise: current_user.exercises.build
+    }
   end
 
   def show
+    # Use current_training_session if accessed via dated route, otherwise today's
+    training_session = params[:training_session_session_on] ? current_training_session : todays_training_session
+    exercise = current_user.exercises.find(params[:id])
+
     render locals: {
-      exercise: current_user.exercises.find(params[:id]),
+      exercise: exercise,
       exercises: current_user.exercises,
-      training_session: current_training_session
+      training_session: training_session
     }
   end
 
   private def exercise_params
     params.require(:exercise).permit(:name)
-  end
-
-  private def redirect_if_future_session
-    if current_training_session.future?
-      redirect_to training_session_path(current_user.training_sessions.today)
-    end
   end
 end

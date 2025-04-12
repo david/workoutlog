@@ -1,8 +1,8 @@
-<%# locals: (exercise:, exercise_option:, training_session:) %>
+<%# locals: (exercise:, exercise_option:) %>
 
 <% content_for :navbar do %>
   <span class="flex items-center gap-2 justify-start">
-    <%= nav_link_to "arrow_back", training_session_exercise_path(training_session, exercise) %>
+    <%= nav_link_to "arrow_back", exercise_path(exercise) %>
 
     <span class="btn-ghost font-bold whitespace-nowrap truncate overflow-hidden">
       <%= t(".title") %>

@@ -1,0 +1,39 @@
+<%# locals: (training_session:) %>
+
+<% content_for :navbar do %>
+  <span class="flex items-center gap-2">
+    <span class="flex items-center">
+      <%= nav_link_to "chevron_left", training_session_path(training_session.previous) %>
+      <%= nav_link_to "chevron_right", training_session_path(training_session.next),
+        disabled: training_session.future? %>
+    </span>
+
+    <span class="btn-ghost font-bold min-w-64">
+      <%= training_session.to_param %>
+    </span>
+  </span>
+<% end %>
+
+<main class="container mx-auto px-4 py-4">
+  <table class="table w-full">
+    <thead>
+      <tr>
+        <th><%= Exercise.model_name.human %></th>
+        <th><%= ExerciseOption.human_attribute_name(:reps) %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% training_session.exercise_choices.each do |choice| %>
+        <tr>
+          <td>
+            <span class="flex items-center gap-3">
+              <span class="w-4"><%= exercise_priority(choice.exercise_option.priority) %></span>
+              <span><%= choice.exercise_option.description %></span>
+            </span>
+          </td>
+          <td class="text-right"><%= choice.reps %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</main>

@@ -1,8 +1,6 @@
 class ExerciseChoicesController < ApplicationController
   def create
-    training_session = current_user.
-      training_sessions.
-      find_or_create_by!(session_on: params[:training_session_session_on])
+    training_session = todays_training_session
 
     exercise_choice_params = exercise_choice_params_for_create
     exercise_option_id = exercise_choice_params.delete(:exercise_option_id)
@@ -12,15 +10,17 @@ class ExerciseChoicesController < ApplicationController
       build(exercise_option:, **exercise_choice_params)
 
     if exercise_choice.save
-      redirect_back fallback_location: training_session
+      redirect_to exercise_path(exercise_option.exercise_id)
     else
       raise exercise_choice.errors.inspect
     end
   end
 
   def update
-    if current_user.exercise_choices.find(params[:id]).update(exercise_choice_params_for_update)
-      redirect_back fallback_location: training_sessions_path
+    exercise_choice = current_user.exercise_choices.include(:exercise_option).find(params[:id])
+
+    if exercise_choice.update(exercise_choice_params_for_update)
+      redirect_to exercise_path(exercise_choice.exercise_option.exercise_id)
     else
       raise exercise_choice.errors.inspect
     end

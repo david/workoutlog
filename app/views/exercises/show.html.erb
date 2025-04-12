@@ -3,7 +3,7 @@
 <% content_for :navbar do %>
   <div class="flex-1 flex items-center justify-between">
     <span class="flex items-center gap-2 justify-start">
-      <%= nav_link_to "arrow_back", training_session_exercises_path(training_session) %>
+      <%= nav_link_to "arrow_back", exercises_path %>
 
       <span class="btn-ghost font-bold whitespace-nowrap truncate overflow-hidden">
         <%= exercise.name %>
@@ -28,14 +28,15 @@
             end %>
 
             <li class="list-row pl-4 <%= style %>">
-              <%= link_to ex.name, training_session_exercise_path(training_session, ex),
-                class: "no-underline" %>
+              <% path = training_session.past? ? training_session_exercise_path(training_session, ex) : exercise_path(ex) %>
+              <%= link_to ex.name, path, class: "no-underline" %>
           </li>
         <% end %>
-        <li class="list-row pl-4 text-xl justify-center">
-          <%= render partial: "exercises/form",
-            locals: { exercise: current_user.exercises.build } %>
-        </li>
+        <% if training_session.today? %>
+          <li class="list-row pl-4 text-xl justify-center">
+            <%= render partial: "exercises/form", locals: { exercise: current_user.exercises.build } %>
+          </li>
+        <% end %>
       </ul>
     </div>
 
@@ -50,10 +51,21 @@
               <%= choice.exercise_option.reps %> <%= t :reps %>
               </p>
             </div>
-            <%= form_with model: [training_session, choice], class: "flex-0 min-w-20" do |f| %>
-              <%= f.hidden_field :exercise_option_id %>
-              <%= f.number_field :reps, placeholder: "0",
-                class: "input text-3xl text-right pr-6" %>
+            <% if training_session.today? %>
+              <%= form_with(
+                model: choice,
+                url: (choice.persisted? ? exercise_choice_path(choice) : exercise_choices_path),
+                class: "flex-0 min-w-20"
+              ) do |f| %>
+                <%= f.hidden_field :exercise_option_id unless choice.persisted? %>
+                <%= f.number_field :reps, placeholder: "0", value: (choice.reps if choice.persisted?),
+                  class: "input text-3xl text-right pr-6",
+                  data: { action: "input->autosave#save" } %>
+              <% end %>
+            <% else %>
+              <div class="flex-0 min-w-20 text-3xl text-right pr-6">
+                <%= choice.reps %>
+              </div>
             <% end %>
           </li>
         <% end %>

@@ -8,13 +8,13 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   resources :training_sessions, param: :session_on, only: %i[index show] do
-    resources :exercises
-    resources :exercise_choices
+    resources :exercises, only: %i[index show]
   end
 
-  resources :exercises do
+  resources :exercises, only: %i[index show new create] do
     resources :exercise_options, only: %i[new create]
   end
+  resources :exercise_choices, only: %i[create update]
 
   resource :authentication, only: %i[new create show]
 

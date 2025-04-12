@@ -4,8 +4,7 @@ class ExerciseOptionsController < ApplicationController
 
     render locals: {
       exercise:,
-      exercise_option: exercise.exercise_options.build,
-      training_session: current_training_session
+      exercise_option: exercise.exercise_options.build
     }
   end
 
@@ -14,7 +13,7 @@ class ExerciseOptionsController < ApplicationController
     exercise_option = exercise.exercise_options.build(exercise_option_params)
 
     if exercise_option.save
-      redirect_to training_session_exercise_path(current_training_session, exercise)
+      redirect_to exercise_path(exercise)
     else
       raise exercise_option.errors.inspect
     end

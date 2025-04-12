@@ -25,7 +25,7 @@ class ExerciseOptionsControllerTest < ActionDispatch::IntegrationTest
       }
     end
 
-    assert_redirected_to training_session_exercise_url(@training_session, @exercise)
+    assert_redirected_to exercise_url(@exercise)
 
     new_option = @exercise.exercise_options.last
 
