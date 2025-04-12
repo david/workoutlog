@@ -1,13 +1,20 @@
 <%# locals: (exercise:, exercises:, training_session:) %>
 
 <% content_for :navbar do %>
-  <span class="flex items-center gap-2 justify-start">
-    <%= nav_link_to "arrow_back", training_session_exercises_path(training_session) %>
+  <div class="flex-1 flex items-center justify-between">
+    <span class="flex items-center gap-2 justify-start">
+      <%= nav_link_to "arrow_back", training_session_exercises_path(training_session) %>
 
-    <span class="btn-ghost font-bold whitespace-nowrap truncate overflow-hidden">
-      <%= exercise.name %>
+      <span class="btn-ghost font-bold whitespace-nowrap truncate overflow-hidden">
+        <%= exercise.name %>
+      </span>
     </span>
-  </span>
+
+    <%= link_to new_exercise_exercise_option_path(exercise),
+      class: "btn btn-circle btn-ghost" do %>
+      <span class="material-symbols-outlined text-gray-400">add</span>
+    <% end %>
+  </div>
 <% end %>
 
 <main class="prose mx-auto">
@@ -50,32 +57,7 @@
             <% end %>
           </li>
         <% end %>
-
-        <% if exercise.exercise_options.count < 7 %>
-          <li class="list-row pl-4 text-xl justify-center">
-            <%= form_with model: ExerciseOption.new, url: exercise_exercise_options_path(
-              exercise
-            ) do |f| %>
-            <p class="flex gap-2">
-            <%= f.text_field :name, class: "input", placeholder: t(".exopt.name"),
-              required: true %>
-            <%= f.text_field :reps, class: "input flex-1/5", placeholder: t(".exopt.reps"),
-              required: true %>
-          </p>
-
-          <p>
-          <%= f.text_area :description, class: "textarea",
-            placeholder: t(".exopt.description") %>
-        </p>
-
-        <p>
-        <%= f.submit "Save", class: "btn" %>
-        </p>
-      <% end %>
-          </li>
-        <% end %>
       </ul>
-
     </div>
   </div>
 </main>

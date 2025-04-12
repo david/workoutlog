@@ -1,0 +1,31 @@
+<%# locals: (exercise:, exercise_option:, training_session:) %>
+
+<% content_for :navbar do %>
+  <span class="flex items-center gap-2 justify-start">
+    <%= nav_link_to "arrow_back", training_session_exercise_path(training_session, exercise) %>
+
+    <span class="btn-ghost font-bold whitespace-nowrap truncate overflow-hidden">
+      <%= t(".title") %>
+    </span>
+  </span>
+<% end %>
+
+<main class="prose mx-auto px-4">
+  <%= form_with model: exercise_option, url: exercise_exercise_options_path(exercise) do |f| %>
+    <fieldset class="fieldset flex">
+      <%= f.text_field :name, class: "input flex-1", placeholder: t(".name"), required: true %>
+    </fieldset>
+
+    <fieldset class="fieldset flex">
+      <%= f.text_field :reps, class: "input flex-1", placeholder: t(".reps"), required: true %>
+    </fieldset>
+
+    <fieldset class="fieldset flex">
+      <%= f.text_area :description, class: "textarea flex-1", placeholder: t(".description") %>
+    </fieldset>
+
+    <fieldset class="fieldset">
+      <%= f.submit t(".save"), class: "btn" %>
+    </fieldset>
+  <% end %>
+</main>
