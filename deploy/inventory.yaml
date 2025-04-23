@@ -1,9 +1,14 @@
-hosts:
-  hosts:
-    main:
-      ansible_host: prod-sys
-      ansible_connection: ssh
-      ansible_become: true
-      ansible_become_method: sudo
-      ansible_python_interpreter: /usr/bin/python3.12
+prod:
+  children:
+    sys:
+      hosts:
+        prod-sys:
+          ansible_become: true
+    app:
+      hosts:
+        prod-app:
+  vars:
+    ansible_connection: ssh
+    ansible_become_method: sudo
+    ansible_python_interpreter: /usr/bin/python3.12
 

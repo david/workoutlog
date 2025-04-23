@@ -1,0 +1,14 @@
+- name: Deploy
+  hosts: localhost
+
+  tasks:
+    - name: Deploy stack
+      community.general.docker_stack:
+        compose:
+          - docker-stack.yaml
+        docker_host: ssh://prod-app
+        force: true
+        name: exl
+        prune: true
+        state: present
+        with_registry_auth: true

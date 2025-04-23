@@ -1,5 +1,6 @@
-- name: Prepare
-  hosts: hosts
+- name: Setup system
+  hosts: sys
+
   tasks:
     - name: Configure login
       block:
@@ -78,5 +79,25 @@
           ansible.posix.authorized_key:
             user: app
             state: present
-            key: "{{ lookup('file', '~/.ssh/prod-app.key.pub') }}"
+            key: "{{ lookup('file', '~/.ssh/prod-app.pub') }}"
 
+- name: Setup app
+  hosts: app
+  tags: app
+
+  tasks:
+    - name: Add rails secret key base
+      community.docker.docker_secret:
+        name: secret-key-base
+        data: "{{ prod.secrets.secret_key_base }}"
+
+    - name: Add database password
+      community.docker.docker_secret:
+        name: db-password
+        data: "{{ prod.secrets.db_password }}"
+
+    - name: Registry auth
+      community.docker.docker_login:
+        registry: "{{ prod.registry.url }}"
+        username: "{{ prod.registry.username }}"
+        password: "{{ prod.registry.password }}"
